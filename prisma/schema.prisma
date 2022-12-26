@@ -1,0 +1,27 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model mobelaris_translation {
+  mobelaris_translation_id Int      @id @default(autoincrement()) @db.UnsignedInt
+  target_language          String?  @db.Text
+  text                     String?  @db.Text
+  text_translated          String?  @db.Text
+  text_hash                String?  @db.Text
+  status                   Int?     @db.SmallInt
+  attribute                String?  @db.Text
+  sku                      String?  @db.Text
+  created_at               DateTime @default(now()) @db.Timestamp(0)
+  locale                   String?  @db.VarChar(255)
+  tag                      String?  @db.VarChar(255)
+  condition                String?  @db.VarChar(255)
+
+  @@index([locale], map: "mobelaris_translation_locale_IDX")
+  @@index([text_hash(length: 200), locale], map: "mobelaris_translation_text_hash_IDX")
+  @@index([text_hash(length: 200), text_translated(length: 300), status, locale(length: 5)], map: "mobelaris_translation_text_translate_IDX")
+}
