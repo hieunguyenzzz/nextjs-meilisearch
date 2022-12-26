@@ -1,9 +1,11 @@
+require('dotenv').config()
+
 const {request, gql} = require('graphql-request');
 const {MeiliSearch} = require('meilisearch')
 const {uid} = require('uid');
 
-const endpoint = '';
-const client = new MeiliSearch({host: '', apiKey: ''})
+const endpoint = process.env.MAGENTO_ENDPOINT;
+const client = new MeiliSearch({host: process.env.MEILISEARCH_ENDPOINT, apiKey: process.env.MEILISEARCH_KEY})
 
 const query = gql`
     {
@@ -89,7 +91,7 @@ const query = gql`
     }
 `
 const mapLoop = async _ => {
-    const stores = ['en','se', 'no', 'nl', 'de', 'es', 'de', 'at', 'be', 'it', 'eu', 'fi', 'pl', 'cs', 'pt', 'lu', 'de_at', 'ch', 'uk', 'nl_be', 'de_ch']
+    const stores = ['en']
 
     for( const store of stores) {
         console.log(store);
