@@ -27,6 +27,10 @@ export default async function  handler(req, res) {
     methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
     origin: '*',
     optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
+    headers: {
+      'Access-Control-Allow-Origin': '*', // Replace * with your desired origin(s)
+      'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'
+    },
   });
 
   res.status(200).json({productResult, categoryResult, suggestionResult})
